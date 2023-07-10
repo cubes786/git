@@ -18,10 +18,7 @@ class Solution:
                 curr.next=list2
                 list2=list2.next
             curr=curr.next
-        if list1:
-            curr.next=list1
-        elif list2:
-            curr.next=list2
+        curr.next=list1 if list1 else list2    
         return dummy.next
     
 # Create the first linked list: 1 -> 3 -> 5
