@@ -2,6 +2,14 @@ from typing import List
 from bisect import bisect_left
 
 class Solution:
+    def findLongestChainPuredp(self, pairs: List[List[int]]) -> int:
+        n,dp=len(pairs),[1]*len(pairs)
+        pairs.sort(key=lambda x:x[0])
+        for i in range(n):
+            for j in range(i):
+                if pairs[j][1]<pairs[i][0]:
+                    dp[i]=max(dp[i],dp[j]+1)    
+        return max(dp)
     def findLongestChaindp(self, pairs: List[List[int]]) -> int:
         n,dp=len(pairs),[1]*len(pairs)
         pairs.sort(key=lambda x:x[0])
@@ -38,6 +46,6 @@ class Solution:
     
 sol=Solution()
 pairs1 = [[1,2],[2,3],[3,4]]
-print(sol.findLongestChain(pairs1))
+print(sol.findLongestChainPuredp(pairs1))
 pairs2=[[1,2],[7,8],[4,5]]
-print(sol.findLongestChain(pairs2))
+print(sol.findLongestChainPuredp(pairs2))
