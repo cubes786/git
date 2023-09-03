@@ -37,9 +37,16 @@ class Solution:
                     visited.add(j)
         return False
     
-        
-    
-
+    def canJumpDP(self, nums: List[int]) -> bool:  #O(n^2)
+        n=len(nums)
+        dp=[False]*n
+        dp[0]=True
+        for i in range(1,n):
+            for j in range(i):
+                if dp[j] and j+nums[j]>=i:
+                    dp[i]=True
+                    break
+        return dp[-1]
 
 sol=Solution()
 nums1=[2,3,1,1,4]
@@ -50,3 +57,5 @@ print(sol.canJumpDFS(nums1))
 print(sol.canJumpDFS(nums2))
 print(sol.canJumpBFS(nums1))
 print(sol.canJumpBFS(nums2))
+print(sol.canJumpDP(nums1))
+print(sol.canJumpDP(nums2))
