@@ -37,7 +37,7 @@ class Solution:
                     visited.add(j)
         return False
     
-    def canJumpDP(self, nums: List[int]) -> bool:  #O(n^2)
+    def canJumpDPOld(self, nums: List[int]) -> bool:  #O(n^2)
         n=len(nums)
         dp=[False]*n
         dp[0]=True
@@ -46,6 +46,16 @@ class Solution:
                 if dp[j] and j+nums[j]>=i:
                     dp[i]=True
                     break
+        return dp[-1]
+    
+    def canJumpDP(self, nums: List[int]) -> bool: #O(n)
+        n,maxreach=len(nums),nums[0]
+        dp=[False]*n
+        dp[0]=True
+        for i in range(1,n):
+            if dp[i-1] and i<=maxreach:
+                dp[i]=True
+            maxreach=max(maxreach,nums[i]+i)
         return dp[-1]
 
 sol=Solution()
