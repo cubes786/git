@@ -49,6 +49,12 @@ class Solution:
                 acc+=curr
             prev=curr
         return acc
+
+    def romanToIntListComp(self, s: str) -> int:
+        rom2IDict = {'I':1, 'V':5, 'X':10, 'L':50, 'C':100, 'D':500, 'M':1000}
+        acc = sum(rom2IDict[c] if rom2IDict[c] >= rom2IDict[s[i-1]] or i == 0 else -rom2IDict[c] for i, c in enumerate(s))
+        return acc
+
 sol=Solution()
 print(sol.romanToInt('III'))
 print(sol.romanToInt('VIII'))
