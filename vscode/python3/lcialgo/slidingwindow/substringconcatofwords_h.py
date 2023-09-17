@@ -1,7 +1,7 @@
 from typing import List
 
 class Solution:
-    def findSubstringBF(self, s: str, words: List[str]) -> List[int]: #O(n)
+    def findSubstringBF(self, s: str, words: List[str]) -> List[int]: #O(n^3)
         wlen,numwords=len(words[0]),len(words)
         allwlen,res=wlen*numwords,[]
         allwords_set=set(words)
@@ -17,7 +17,7 @@ class Solution:
                     res.append(i)            
         return res
     
-    def findSubstring(self, s, words):        
+    def findSubstring(self, s, words):        #O(n)
         word_len=len(words[0])
         words_len=len(words)*word_len
         from collections import Counter
