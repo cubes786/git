@@ -19,7 +19,7 @@ class Solution:
                 for i in range(window_size, length, window_size):
                     if window_counter != Counter(s[i:i+window_size]):
                         break
-                    window_counter = window_counter + Counter(s[i:i+window_size]) - Counter(s[i-window_size:i])
+                    #window_counter = window_counter + Counter(s[i:i+window_size]) - Counter(s[i-window_size:i])
                 else:
                     return s[:window_size]
         return s    
@@ -33,7 +33,7 @@ class Solution:
             for i in range(window_size, length, window_size):
                 if window_counter != Counter(s[i:i+window_size]):
                     return False
-                window_counter = window_counter + Counter(s[i:i+window_size]) - Counter(s[i-window_size:i])
+                #window_counter = window_counter + Counter(s[i:i+window_size]) - Counter(s[i-window_size:i])
 
             return True
 
@@ -58,3 +58,7 @@ print(sol.check_anagram('abcabc'))  # 2
 print(sol.check_anagram('abcdbca'))  # 1
 print(sol.check_anagram('ababbaab'))  # 1
 print(sol.check_anagram('bcaacbabc'))  # 1
+print(sol.check_anagramN2('abcabc'))  # 2
+print(sol.check_anagramN2('abcdbca'))  # 1
+print(sol.check_anagramN2('ababbaab'))  # 1
+print(sol.check_anagramN2('bcaacbabc'))  # 1
