@@ -1,14 +1,11 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int: #O(n)
-        n,left,char_index,maxlen=len(s),0,dict(),0
-        for right, rightchar in enumerate(s):
-            if rightchar in char_index and left<=char_index[rightchar]: #the left check ensures we adjust the left ptr of window only if it 
-                #the last index of curr elem is inside the window else the left ptr is already moved past last index and 
-                #we dont need to slide the window
-                left = char_index[rightchar]+1              
-            else:                                        
-                maxlen=max(maxlen,right-left+1)  
-            char_index[rightchar]=right
+        maxlen,left,seen,n=0,0,{},len(s)
+        for i in range(len(s)):
+            if s[i] in seen:
+                left=max(left, seen[s[i]]+1)
+            seen[s[i]]=i
+            maxlen=max(maxlen,i-left+1)
         return maxlen
 
     def lengthOfLongestSubstringBF(self, s): #O(n^3)
