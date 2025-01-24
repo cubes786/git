@@ -1,0 +1,34 @@
+/* frontend/src/styles/BookCard.css */
+
+.book-card {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px dashed gray;
+    padding: 10px 0;
+ }
+ .book-card:hover{
+     background-color: rgba(0,0,0,0.05);
+ }
+ .book-link{
+   display: flex;
+     gap: 15px;
+     align-items: center;
+     text-decoration: none;
+ }
+ .book-card-content{
+     display: flex;
+     flex-direction: column;
+     flex: 1;
+ }
+ 
+ .book-title{
+     color: black;
+      font-size: 1rem;
+      line-height: 1.2rem;
+       margin: 0;
+ }
+ .book-price{
+     color: blue;
+      font-size: 1rem;
+      margin: 0;
+ }

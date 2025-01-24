@@ -1,0 +1,33 @@
+/* frontend/src/styles/BookList.css */
+
+.book-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .book-list {
+    list-style: none;
+    padding: 0;
+    width: 80%; /* Adjust as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .top-links {
+      margin: 10px 0;
+      padding: 10px;
+      text-align: center;
+      display: flex;
+       gap: 15px;
+      justify-content: center;
+  }
+  .top-links a {
+    text-decoration: none;
+      color: blue;
+      border-bottom: 1px dashed gray;
+  }
+  .book-list li{
+   padding: 10px 0;
+  }
