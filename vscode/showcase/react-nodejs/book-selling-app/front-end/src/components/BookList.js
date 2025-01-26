@@ -22,12 +22,7 @@ const BookList = () => {
 
     return (
         <Container>
-          <h2 className="mb-4">Book List</h2>
-             <div className='top-links'>
-                <Link to="/register">Register</Link>
-                <Link to="/login">Login</Link>
-                <Link to="/profile">Profile</Link>
-            </div>
+          <h2 className="mb-4">Book List</h2>             
               <Row xs={1} md={3} className="g-4">
                 {books.map(book => (
                     <Col key={book.id}>
