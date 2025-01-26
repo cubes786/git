@@ -38,13 +38,6 @@ function App() {
                 <Container>
                     <Navbar.Brand as={Link} to="/">Book Selling App</Navbar.Brand>
                     <Nav className="ms-auto">
-                        <Nav.Link as={Link} to="/">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/cart" className="position-relative">
-                            <BsFillCartFill style={{ marginBottom: '5px', marginRight: '5px' }} />
-                            <Badge pill bg="secondary" style={{ position: "absolute", top: "1px" }}>
-                                {cart.length}
-                            </Badge>
-                        </Nav.Link>
                         {user ? (
                             <>
                                 <Nav.Link as={Link} to="/profile">{user.username}</Nav.Link>
@@ -56,6 +49,12 @@ function App() {
                                 <NavDropdown.Item as={Link} to="/register">Register</NavDropdown.Item>
                             </NavDropdown>
                         )}
+                        <Nav.Link as={Link} to="/cart" className="position-relative">
+                            <BsFillCartFill style={{ marginBottom: '5px', marginRight: '5px' }} />
+                            <Badge pill bg="secondary" style={{ position: "absolute", top: "1px" }}>
+                                {cart.length}
+                            </Badge>
+                        </Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
