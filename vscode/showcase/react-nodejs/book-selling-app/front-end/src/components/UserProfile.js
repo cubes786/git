@@ -2,17 +2,21 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../contexts/CartContext';
 
 
-const UserProfile = () => {
+const UserProfile = ({ setUser }) => {
    const navigate = useNavigate();
    const [orders, setOrders] = useState([]);
-   const [user,setUser] = useState(null);
+   const [user, setLocalUser] = useState(null);
+   const { clearCart } = useCart();
 
   useEffect(()=>{
        const storedUser = sessionStorage.getItem('user');
-       if(storedUser){
-          setUser(JSON.parse(storedUser));
+       if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            setUser(parsedUser); // Update user state in App.js
+            setLocalUser(parsedUser); // Update local user state
        }
     const fetchOrders = async () => {
         try {
@@ -31,6 +35,9 @@ const UserProfile = () => {
 
    const handleLogout = ()=>{
        sessionStorage.removeItem('user');
+       clearCart(); // Clear the cart
+       setUser(null); // Reset user state in App.js
+       setLocalUser(null); // Reset local user state
        navigate('/');
    }
    return (

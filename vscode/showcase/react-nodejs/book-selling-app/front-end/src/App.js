@@ -72,7 +72,7 @@ function App() {
                     <Route path="/login" element={<UserLogin setUser={setUser} />} />
                     <Route path="/cart" element={<ShoppingCart />} />
                     <Route path="/checkout" element={<CheckoutForm />} />
-                    <Route path="/profile" element={<UserProfile />} />
+                    <Route path="/profile" element={<UserProfile setUser={setUser} />} />
                 </Routes>
             </Container>
         </Router>
