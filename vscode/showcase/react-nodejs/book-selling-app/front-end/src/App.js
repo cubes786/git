@@ -10,6 +10,7 @@ import UserProfile from './components/UserProfile';
 import { Container, Navbar, Nav, NavDropdown, Badge } from 'react-bootstrap';
 import { BsFillCartFill } from "react-icons/bs";
 import { useCart } from './contexts/CartContext';
+import './App.css';
 
 function App() {
     const [user, setUser] = useState(null);
@@ -36,7 +37,11 @@ function App() {
         <Router>
             <Navbar bg="dark" variant="dark" className="p-3" fixed="top">
                 <Container>
-                    <Navbar.Brand as={Link} to="/">Book Selling App</Navbar.Brand>
+                    <Navbar.Brand as={Link} to="/" className="flashy">
+                        {Array.from("Book Bazaar").map((char, index) => (
+                            <span key={index}>{char === " " ? "\u00A0" : char}</span>
+                        ))}
+                    </Navbar.Brand>
                     <Nav className="ms-auto">
                         {user ? (
                             <>
@@ -59,7 +64,7 @@ function App() {
                 </Container>
             </Navbar>
 
-            <Container style={{ marginTop: "80px" }}>
+            <Container style={{ marginTop: "90px" }}>
                 <Routes>
                     <Route path="/" element={<BookList />} />
                     <Route path="/books/:bookId" element={<BookDetails />} />

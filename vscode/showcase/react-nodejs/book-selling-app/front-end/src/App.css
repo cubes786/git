@@ -39,3 +39,42 @@ footer {
   object-fit: cover;
   object-position: center;
 }
+
+@keyframes flashy-text {
+  0% { color: var(--primary); text-shadow: 0 0 10px var(--secondary), 0 0 20px var(--secondary); }
+  50% { color: var(--secondary); text-shadow: 0 0 20px var(--primary), 0 0 30px var(--primary); }
+  100% { color: var(--primary); text-shadow: 0 0 10px var(--secondary), 0 0 20px var(--secondary); }
+}
+
+@keyframes dancing {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.navbar-brand.flashy {
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--primary); /* Default text color */
+  text-shadow: 0 0 10px var(--secondary), 0 0 20px var(--secondary), 0 0 30px var(--secondary); /* Flashy text */
+  animation: dancing 1.5s infinite ease-in-out; /* Dancing effect for the whole text */
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+
+.navbar-brand.flashy span {
+  display: inline-block;
+  animation: dancing 1.5s infinite ease-in-out;
+}
+
+.navbar-brand.flashy span:nth-child(odd) {
+  animation-delay: 0.1s;
+}
+
+.navbar-brand.flashy span:nth-child(even) {
+  animation-delay: 0.3s;
+}
