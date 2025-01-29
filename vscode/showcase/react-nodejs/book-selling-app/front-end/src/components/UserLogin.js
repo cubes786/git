@@ -1,3 +1,4 @@
+// frontend/src/components/UserLogin.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -25,9 +26,11 @@ const UserLogin = ({ setUser }) => {
                 password,
             });
 
-            // Store user information in sessionStorage
+            // Store user information and JWT in sessionStorage
             const loggedInUser = response.data.user;
+            const accessToken = response.data.accessToken;
             sessionStorage.setItem('user', JSON.stringify(loggedInUser));
+            sessionStorage.setItem('token', accessToken);
 
             // Update global user state via setUser
             setUser(loggedInUser);

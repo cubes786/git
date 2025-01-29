@@ -1,3 +1,4 @@
+// frontend/src/components/CheckoutForm.js
 import React from 'react';
 import { useCart } from '../contexts/CartContext';
 import axios from 'axios';
@@ -13,23 +14,32 @@ const CheckoutForm = () => {
 
     const handleSubmit = async () => {
         const user = JSON.parse(sessionStorage.getItem('user'));
-        if (!user) {
+        const token = sessionStorage.getItem('token');
+
+        if (!user || !token) {
             return;
         }
 
         const totalAmount = calculateTotal(); // Get the total from the cart
 
         try {
-            const response = await axios.post('http://localhost:3001/orders', {
-                userId: user.id,
-                orderItems: cart,
-                totalAmount: totalAmount // Send totalAmount with the order request
-            });
-            console.log(response.data);
-            clearCart();
+            const response = await axios.post(
+              'http://localhost:3001/orders',
+               {
+                    orderItems: cart,
+                    totalAmount: totalAmount
+                },
+              {
+                headers: {
+                  Authorization: 'Bearer ' + token,
+                },
+              }
+             );
+             console.log(response.data);
+             clearCart();
             navigate('/');
         } catch (error) {
-            console.error('Error placing order', error);
+             console.error('Error placing order', error);
         }
     };
 

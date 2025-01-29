@@ -2,10 +2,13 @@ const express = require('express');
 const router = express.Router();
 const { getConnection } = require('../../shared/db');
 const sql = require('mssql/msnodesqlv8');
+const { authenticateToken } = require('../../shared/auth');
 
-router.post('/orders', getConnection, async (req, res) => {
-    const { userId, orderItems, totalAmount } = req.body; // Get totalAmount from the request body
+router.post('/orders', authenticateToken, getConnection, async (req, res) => {
+    const { orderItems, totalAmount } = req.body; // Get totalAmount from the request body
     try {
+      // req.user is populated by the authenticateToken middleware
+      const userId = req.user.id;
         // Insert new order into Orders table with paymentStatus and totalAmount
         const orderResult = await req.pool.request()
             .input('userId', req.sql.Int, userId)
@@ -34,7 +37,7 @@ router.post('/orders', getConnection, async (req, res) => {
     }
 });
 
-router.get('/orders', getConnection, async (req, res) => {
+router.get('/orders', authenticateToken, getConnection, async (req, res) => {
     try {
         const result = await req.pool.request().query('SELECT * FROM BookSelling.Orders');
         res.json(result.recordset);

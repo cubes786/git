@@ -11,16 +11,6 @@ const { initializePool } = require('../shared/db');
 const app=express();
 const port=process.env.PORT || 3001;
 
-//debug statments start
-// console.log("DB_SERVER:", process.env.DB_SERVER)
-// console.log("Type:",typeof process.env.DB_SERVER);
-// console.log('USERNAME:', process.env.USERNAME);
-// const os = require('os');
-// const userInfo = os.userInfo();
-// console.log('User Info:', userInfo);
-// console.log('USER:', process.env.USER);
-//debug statments end
-
 app.use(cors());
 app.use(express.json()); //enable JSON body parsing
 
