@@ -1,29 +1,45 @@
 const express = require('express');
 const router = express.Router();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const { authenticateToken } = require('../shared/auth');
+const { authenticateToken } = require('../../shared/auth');
 const { getConnection } = require('../../shared/db');
 const sql = require('mssql/msnodesqlv8');
 
 // Create Payment Intent
 router.post('/payment-intents', authenticateToken, getConnection, async (req, res) => {
+    console.log("🟢 /payment-intents route hit!");  // ✅ This should always appear
+    console.log("Request body:", req.body);  // Log incoming request
+    console.log("User from token:", req.user);  // Log authenticated user
+
     try {
         const { orderId } = req.body;
-        const userId = req.user.userId;
+        const userId = req.user.id; //userId
+
+        console.log(`Received request for payment intent: orderId=${orderId}, userId=${userId}`);
 
         // Get order details
+        const query = `SELECT id, totalAmount FROM BookSelling.Orders 
+                       WHERE id = @orderId AND userId = @userId AND paymentStatus = 'pending'`;
+
+        console.log(`Executing SQL Query:\n${query}`);
+        console.log(`Parameters: orderId=${orderId}, userId=${userId}`);
+
         const orderResult = await req.pool.request()
             .input('orderId', sql.Int, orderId)
             .input('userId', sql.Int, userId)
-            .query(`SELECT id, totalAmount FROM BookSelling.Orders 
-                   WHERE id = @orderId AND userId = @userId AND paymentStatus = 'pending'`);
+            .query(query);
+
+        console.log("SQL Query Result:", orderResult.recordset);
 
         if (orderResult.recordset.length === 0) {
-            return res.status(404).json({ error: 'Order not found or already paid' });
+            console.error(`❌ Order not found: orderId=${orderId}, userId=${userId}`);
+            return res.status(404).json({ error: `Order not found: orderId=${orderId}, userId=${userId}` });
         }
 
         const order = orderResult.recordset[0];
         const amount = Math.round(order.totalAmount * 100); // Convert to cents
+
+        console.log(`💰 Creating Stripe Payment Intent for amount: ${amount} cents`);
 
         // Create Payment Intent
         const paymentIntent = await stripe.paymentIntents.create({
@@ -32,9 +48,11 @@ router.post('/payment-intents', authenticateToken, getConnection, async (req, re
             metadata: { orderId: orderId.toString() }
         });
 
+        console.log("✅ Stripe Payment Intent Created:", paymentIntent);
+
         res.json({ clientSecret: paymentIntent.client_secret });
     } catch (err) {
-        console.error(err);
+        console.error("🔥 ERROR creating payment intent:", err);
         res.status(500).send('Error creating payment intent');
     }
 });

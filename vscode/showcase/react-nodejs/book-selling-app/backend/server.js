@@ -6,6 +6,7 @@ require('dotenv').config();
 const booksRouter=require('./routes/books');
 const usersRoute=require('./routes/users');
 const ordersRoute=require('./routes/orders');
+const paymentsRoute=require('./routes/payments');
 const { initializePool } = require('../shared/db');
 
 const app=express();
@@ -21,6 +22,7 @@ initializePool();
 app.use('/', booksRouter);
 app.use('/', usersRoute);
 app.use('/', ordersRoute);
+app.use('/', paymentsRoute);
 
 app.get('/', (req, res)=>{
     res.send('Hello World')

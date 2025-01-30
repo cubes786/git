@@ -47,4 +47,54 @@ router.get('/orders', authenticateToken, getConnection, async (req, res) => {
     }
 });
 
+router.patch('/orders/:orderId/complete', authenticateToken, getConnection, async (req, res) => {
+    console.log('Received request to complete order');
+    console.log(`Request URL: ${req.url}`);
+    console.log(`Request method: ${req.method}`);
+
+    const { orderId } = req.params;
+    const { transactionId, amount } = req.body;
+
+    try {
+        console.log(`Received request to mark order ${orderId} as paid`);
+
+        // Fetch the order
+        const orderResult = await req.pool.request()
+            .input('orderId', req.sql.Int, orderId)
+            .query('SELECT * from BookSelling.Orders WHERE id = @orderId');
+
+        console.log(`Order result: ${JSON.stringify(orderResult.recordset)}`);
+
+        if (orderResult.recordset.length === 0) {
+            console.error(`Order not found: ${orderId}`);
+            return res.status(404).send('Order not found');
+        }
+
+        // Use the same request pool to update the orders and payments tables
+        await req.pool.request()
+            .input('orderId', req.sql.Int, orderId)
+            .input('status', req.sql.VarChar, 'paid')
+            .query(`UPDATE BookSelling.Orders SET paymentStatus = @status WHERE id = @orderId`);
+
+        console.log(`Updated order ${orderId} payment status to 'paid'`);
+
+        await req.pool.request()
+            .input('orderId', req.sql.Int, orderId)
+            .input('transactionId', req.sql.NVarChar, transactionId)
+            .input('amount', req.sql.Decimal(10, 2), amount)
+            .input('status', req.sql.VarChar, 'successful')
+            .query(`INSERT INTO BookSelling.Payments 
+                    (orderId, transactionId, paymentMethod, paymentDate, amount, paymentStatus)
+                    VALUES (@orderId, @transactionId, 'manual', GETDATE(), @amount, @status)`);
+
+        console.log(`Inserted payment record for order ${orderId}`);
+
+        res.json({ message: `Order ${orderId} marked as paid` });
+    } catch (err) {
+        console.error(`Error marking order ${orderId} as paid: ${err.message}`);
+        console.error(`Error stack: ${err.stack}`);
+        res.status(500).send('Error marking order as paid');
+    }
+});
+
 module.exports = router;
