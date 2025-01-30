@@ -8,7 +8,7 @@ router.post('/orders', authenticateToken, getConnection, async (req, res) => {
     const { orderItems, totalAmount } = req.body; // Get totalAmount from the request body
     try {
       // req.user is populated by the authenticateToken middleware
-      const userId = req.user.id;
+        const userId = req.user.id;
         // Insert new order into Orders table with paymentStatus and totalAmount
         const orderResult = await req.pool.request()
             .input('userId', req.sql.Int, userId)
@@ -39,11 +39,41 @@ router.post('/orders', authenticateToken, getConnection, async (req, res) => {
 
 router.get('/orders', authenticateToken, getConnection, async (req, res) => {
     try {
-        const result = await req.pool.request().query('SELECT * FROM BookSelling.Orders');
-        res.json(result.recordset);
+        // Extract and validate user from authentication token
+        const userId = req.user?.id;
+        
+        if (!userId || typeof userId !== 'number') {
+            return res.status(403).json({
+                message: 'Invalid authentication: Missing valid user identification'
+            });
+        }
+
+        // Fetch orders directly using userId
+        const result = await req.pool.request()
+            .input('userId', sql.Int, userId)
+            .query(`
+                SELECT * 
+                FROM BookSelling.Orders 
+                WHERE userid = @userId
+                ORDER BY orderDate DESC
+            `);
+
+        // Successful response even with empty array
+        res.json(result.recordset);        
+
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Error fetching orders');
+        console.error('Order retrieval error:', err);
+        
+        // Secure error handling
+        res.status(500).json({
+            message: 'Failed to retrieve orders',
+            ...(process.env.NODE_ENV === 'development' && {
+                debug: {
+                    error: err.message,
+                    userId: req.user?.id
+                }
+            })
+        });
     }
 });
 

@@ -1,14 +1,10 @@
 // frontend/src/components/UserProfile.js
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useCart } from '../contexts/CartContext';
 
 const UserProfile = ({ setUser }) => {
-    const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
     const [user, setLocalUser] = useState(null);
-    const { clearCart } = useCart();
     const token = sessionStorage.getItem('token');
 
 
@@ -51,24 +47,14 @@ const UserProfile = ({ setUser }) => {
     if (!user) {
         return <p>Not logged in</p>;
     }
-
-    const handleLogout = () => {
-        sessionStorage.removeItem('user');
-        sessionStorage.removeItem('token');
-         clearCart(); // Clear the cart
-        setUser(null); // Reset user state in App.js
-        setLocalUser(null); // Reset local user state
-        navigate('/');
-    };
-
+    
     return (
         <div>
             <h2>User Profile</h2>
             <div>
                 <p>Username : {user.username}</p>
                 <p>Address: {user.address}</p>
-                <p>Contact Details: {user.contactDetails}</p>
-                <button onClick={handleLogout}>Logout</button>
+                <p>Contact Details: {user.contactDetails}</p>                
             </div>
             <h2>Orders</h2>
             <ul>
