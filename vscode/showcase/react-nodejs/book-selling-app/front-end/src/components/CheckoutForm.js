@@ -1,5 +1,5 @@
 // frontend/src/components/CheckoutForm.js
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useCart } from '../contexts/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { Card, Form, Button, Container, Spinner, Alert } from 'react-bootstrap';
@@ -70,6 +70,8 @@ const CheckoutForm = () => {
                         headers: { Authorization: 'Bearer ' + token }
                     });
                     console.log('Order completed successfully:', response.data);
+                    clearCart();
+                    navigate('/success');
                 } catch (err) {
                     console.error('Error completing order:', err);
                 }
@@ -80,8 +82,7 @@ const CheckoutForm = () => {
             setError('Failed to load payment details. Please try again.');
         }
 
-        clearCart();
-        navigate('/success');
+        
     };
 
     if (cart.length === 0) return <Alert variant="warning">You need to add books before checking out.</Alert>;
@@ -98,7 +99,21 @@ const CheckoutForm = () => {
                             <CardElement className="form-control p-2" options={{ hidePostalCode: true }} />
                         </Form.Group>
                         <Button variant="primary" type="submit" className="w-100" disabled={loading}>
-                            {loading ? 'Processing...' : 'Pay Now'}
+                        {loading ? (
+                                    <>
+                                    <Spinner
+                                        as="span"
+                                        animation="border"
+                                        size="sm"
+                                        role="status"
+                                        aria-hidden="true"
+                                        className="me-2"
+                                    />
+                                    Processing...
+                                    </>
+                                ) : (
+                                    'Pay Now'
+                                )}
                         </Button>
                     </Form>
                 </Card.Body>
