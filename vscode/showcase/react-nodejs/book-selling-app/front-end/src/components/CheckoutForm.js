@@ -7,10 +7,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 
-const STRIPE_PUBLISHABLE_KEY = 'pk_test_51QlkpwCFYjIgmAA6hkDRShKbboHsMJZmFrZlWEG74vVk38WhnbzxsmWsPnnR1RbZ3dPGqUCAdY0bIqltxrtZYyUm00VA4lBrEB';
-//const STRIPE_PUBLISHABLE_KEY = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY;
-console.log("Stripe Key:", STRIPE_PUBLISHABLE_KEY);
-const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHED_KEY);
 
 const CheckoutForm = () => {
     const { cart, clearCart } = useCart();
