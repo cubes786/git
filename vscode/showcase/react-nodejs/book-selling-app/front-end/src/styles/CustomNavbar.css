@@ -1,0 +1,31 @@
+/* NavbarCustom.css */
+.custom-navbar {
+    background-color: #fff; /* white background for a modern look */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .brand-logo {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    color: #ff6f61; /* an accent color – adjust to your liking */
+    font-size: 1.5rem;
+  }
+  
+  .custom-navbar .nav-link,
+  .custom-navbar .dropdown-item {
+    color: #333;
+    font-size: 1rem;
+    margin-left: 10px;
+  }
+  
+  .custom-navbar .nav-link:hover,
+  .custom-navbar .dropdown-item:hover {
+    color: #ff6f61;
+  }
+  
+  .cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+  }
+  

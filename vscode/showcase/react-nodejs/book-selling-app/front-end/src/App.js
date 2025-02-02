@@ -7,76 +7,49 @@ import UserLogin from './components/UserLogin';
 import ShoppingCart from './components/ShoppingCart';
 import CheckoutForm from './components/CheckoutForm';
 import UserProfile from './components/UserProfile';
-import { Container, Navbar, Nav, NavDropdown, Badge } from 'react-bootstrap';
-import { BsFillCartFill } from "react-icons/bs";
+import CustomNavbar from './components/CustomNavbar'; // Use your custom Navbar
+import { Container } from 'react-bootstrap';
 import { useCart } from './contexts/CartContext';
 import './App.css';
 
 function App() {
-    const [user, setUser] = useState(null);
-    const { cart, clearCart } = useCart();
+  const [user, setUser] = useState(null);
+  const { cart, clearCart } = useCart();
 
-    useEffect(() => {
-        const storedUser = sessionStorage.getItem('user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-    }, []);
+  useEffect(() => {
+    const storedUser = sessionStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
-    useEffect(() => {
-        sessionStorage.setItem("cart", JSON.stringify(cart));
-    }, [cart]);
+  useEffect(() => {
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
-    const handleLogout = () => {
-        sessionStorage.removeItem('user');
-        clearCart();
-        setUser(null);
-    };
+  const handleLogout = () => {
+    sessionStorage.removeItem('user');
+    clearCart();
+    setUser(null);
+  };
 
-    return (
-        <Router>
-            <Navbar bg="dark" variant="dark" className="p-3" fixed="top">
-                <Container>
-                    <Navbar.Brand as={Link} to="/" className="flashy">
-                        {Array.from("Book Bazaar").map((char, index) => (
-                            <span key={index}>{char === " " ? "\u00A0" : char}</span>
-                        ))}
-                    </Navbar.Brand>
-                    <Nav className="ms-auto">
-                        {user ? (
-                            <>
-                                <Nav.Link as={Link} to="/profile">{user.username}</Nav.Link>
-                                <Nav.Link as={Link} to="/" onClick={handleLogout}>Logout</Nav.Link>
-                            </>
-                        ) : (
-                            <NavDropdown title="Login / Register" id="login-register-dropdown">
-                                <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
-                                <NavDropdown.Item as={Link} to="/register">Register</NavDropdown.Item>
-                            </NavDropdown>
-                        )}
-                        <Nav.Link as={Link} to="/cart" className="position-relative">
-                            <BsFillCartFill style={{ marginBottom: '5px', marginRight: '5px' }} />
-                            <Badge pill bg="secondary" style={{ position: "absolute", top: "1px" }}>
-                                {cart.length}
-                            </Badge>
-                        </Nav.Link>
-                    </Nav>
-                </Container>
-            </Navbar>
+  return (
+    <Router>
+      <CustomNavbar user={user} handleLogout={handleLogout} cart={cart} />
 
-            <Container style={{ marginTop: "90px" }}>
-                <Routes>
-                    <Route path="/" element={<BookList />} />
-                    <Route path="/books/:bookId" element={<BookDetails />} />
-                    <Route path="/register" element={<UserRegistration />} />
-                    <Route path="/login" element={<UserLogin setUser={setUser} />} />
-                    <Route path="/cart" element={<ShoppingCart />} />
-                    <Route path="/checkout" element={<CheckoutForm />} />
-                    <Route path="/profile" element={<UserProfile setUser={setUser} />} />
-                </Routes>
-            </Container>
-        </Router>
-    );
+      <Container style={{ marginTop: "90px" }}>
+        <Routes>
+          <Route path="/" element={<BookList />} />
+          <Route path="/books/:bookId" element={<BookDetails />} />
+          <Route path="/register" element={<UserRegistration />} />
+          <Route path="/login" element={<UserLogin setUser={setUser} />} />
+          <Route path="/cart" element={<ShoppingCart />} />
+          <Route path="/checkout" element={<CheckoutForm />} />
+          <Route path="/profile" element={<UserProfile setUser={setUser} />} />
+        </Routes>
+      </Container>
+    </Router>
+  );
 }
 
 export default App;
