@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Container, Dropdown, Badge, Form, FormControl } from 'react-bootstrap';
 import {
-  BsFillCartFill,
   BsSearch,
   BsPerson,
   BsBoxArrowInRight, 
@@ -13,9 +12,6 @@ import { Link } from 'react-router-dom';
 import CustomToggle from './CustomToggle'; // Ensure this is the correct path
 import { useNavigate } from 'react-router-dom';
 import '../styles/CustomNavbar.css';
-
-
-// ... rest of your code ...
 
 
 const CustomNavbar = ({ user, handleLogout, cart, onSearch }) => {
