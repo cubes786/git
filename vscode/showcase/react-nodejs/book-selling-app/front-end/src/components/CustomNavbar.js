@@ -1,10 +1,41 @@
-import React from 'react';
-import { Navbar, Nav, Container, NavDropdown, Badge } from 'react-bootstrap';
-import { BsFillCartFill } from 'react-icons/bs';
+// CustomNavbar.js
+import React, { useState } from 'react';
+import { Navbar, Nav, Container, Dropdown, Badge, Form, FormControl } from 'react-bootstrap';
+import {
+  BsFillCartFill,
+  BsSearch,
+  BsPerson,
+  BsBoxArrowInRight, 
+  BsPencilSquare,    
+} from 'react-icons/bs';
+import { BsCartFill, BsCart } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import '../styles/CustomNavbar.css'; // Custom CSS for further styling
+import CustomToggle from './CustomToggle'; // Ensure this is the correct path
+import { useNavigate } from 'react-router-dom';
+import '../styles/CustomNavbar.css';
 
-const CustomNavbar = ({ user, handleLogout, cart }) => {
+
+// ... rest of your code ...
+
+
+const CustomNavbar = ({ user, handleLogout, cart, onSearch }) => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    onSearch(searchQuery);
+  };
+
+  const onLogout = () => {
+    handleLogout();
+    navigate('/');
+  };
+
   return (
     <Navbar expand="lg" fixed="top" className="custom-navbar">
       <Container>
@@ -12,25 +43,67 @@ const CustomNavbar = ({ user, handleLogout, cart }) => {
           Book Bazaar
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
         <Navbar.Collapse id="basic-navbar-nav">
+          <Form onSubmit={handleSearchSubmit} className="d-flex mx-auto search-form">
+            <FormControl
+              type="search"
+              placeholder="Search books..."
+              className="search-input"
+              aria-label="Search"
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
+            <button type="submit" className="search-button">
+              <BsSearch />
+            </button>
+          </Form>
+
           <Nav className="ms-auto align-items-center">
-            {/* You can add a search bar here if needed */}
             {user ? (
               <>
                 <Nav.Link as={Link} to="/profile">{user.username}</Nav.Link>
-                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                <Nav.Link onClick={onLogout}>Logout</Nav.Link>
               </>
             ) : (
-              <NavDropdown title="Login / Register" id="login-register-dropdown">
-                <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/register">Register</NavDropdown.Item>
-              </NavDropdown>
+              <Dropdown>
+                <Dropdown.Toggle as={CustomToggle}>
+                  <BsPerson className="profile-icon-spanning" size={30} />
+                  <div className="dropdown-title-wrapper">
+                    <div className="welcome-line">Welcome</div>
+                    <div className="register-line">
+                      Sign in / Register
+                      <span className="dropdown-arrow"></span>
+                    </div>
+                  </div>
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu className="auth-dropdown-menu">
+                  <Dropdown.Item as={Link} to="/login">
+                    <BsBoxArrowInRight /> {/* Login Icon */}
+                    Login
+                  </Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/register">
+                    <BsPencilSquare /> {/* Register Icon */}
+                    Register
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             )}
-            <Nav.Link as={Link} to="/cart" className="position-relative">
-              <BsFillCartFill size={20} />
-              <Badge pill bg="secondary" className="cart-badge">
-                {cart.length}
-              </Badge>
+           <Nav.Link as={Link} to="/cart" className="cart-link d-flex align-items-center position-relative">
+              <div className="cart-icon-wrapper position-relative">
+                {cart.length > 0 ? (
+                  <BsCartFill size={24} />
+                ) : (
+                  <BsCart size={24} />
+                )}
+                {cart.length > 0 && (
+                  <Badge pill bg="secondary" className="cart-badge">
+                    {cart.length}
+                  </Badge>
+                )}
+              </div>
+              <span className="cart-text ms-1">Cart</span>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
