@@ -1,0 +1,54 @@
+name: Build and Deploy React App
+
+on:
+  push:
+    branches:
+      - main  # Change to your development branch if needed
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Check out the source code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Set up Node.js (adjust the version as needed)
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Build the React app
+      - name: Build the project
+        run: npm run build
+
+      # 5. Clone the GitHub Pages repository (your showcase repo)
+      - name: Clone showcase repository
+        run: |
+          git clone https://github.com/cubes786/cubes786.github.io.git ../cubes786.github.io
+        # (Make sure the URL matches your GitHub Pages repository)
+
+      # 6. Copy the build output to the subfolder in the showcase repo
+      - name: Copy build files to shopping-portal folder
+        run: |
+          rm -rf ../cubes786.github.io/showcase/shopping-portal
+          mkdir -p ../cubes786.github.io/showcase/shopping-portal
+          cp -R build/* ../cubes786.github.io/showcase/shopping-portal/
+
+      # 7. Commit and push the changes to the showcase repo
+      - name: Deploy changes to GitHub Pages
+        working-directory: ../cubes786.github.io
+        env:
+          # GitHub automatically provides this token for authentication.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add showcase/shopping-portal
+          git commit -m "Deploy shopping portal update from commit ${{ github.sha }}" || echo "No changes to commit"
+          git push origin main
