@@ -1,218 +1,209 @@
 /* CustomNavbar.css */
 .custom-navbar {
-    background-color: #222;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  background-color: #222;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex; /*  Important: Enable Flexbox for the navbar */
+  align-items: center; /* Vertically center items */
+  padding: 0 1rem; /* Add some padding to the left and right */
 }
 
 .brand-logo {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 700;
-    color: #fff;
-    font-size: 1.5rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  color: #fff;
+  font-size: 1.5rem;
 }
 
 .custom-navbar .nav-link,
 .custom-navbar .dropdown-item {
-    color: #ddd;
-    font-size: 1rem;
-    margin-left: 10px;
+  color: #ddd;
+  font-size: 1rem;
+  margin-left: 10px;
 }
 
 .custom-navbar .nav-link:hover,
 .custom-navbar .dropdown-item:hover {
-    color: #fff;
+  color: #fff;
 }
 
 /* Search Bar Styling */
 .search-form {
-    flex: 1;
-    max-width: 600px;
-    position: relative;
+  flex: 1; /*  Crucial: Allow the search form to take up available space */
+  max-width: 75%; /*  Adjust as needed, but a percentage is good */
+  position: relative;
+  margin: 0 1rem; /* Add some spacing around the search bar */
 }
 
 .search-input {
-    width: 100%;
-    padding: 0.5rem 2.5rem 0.5rem 1rem;
-    border-radius: 25px;
-    border: 1px solid #555;
-    background-color: #fff;
-    color: #333;
-    transition: border-color 0.3s;
+  width: 100%;
+  padding: 0.5rem 2.5rem 0.5rem 1rem;
+  border-radius: 25px;
+  border: 1px solid #555;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.3s;
 }
 
 .search-input:focus {
-    border-color: #3498db;
-    box-shadow: none;
+  border-color: #3498db;
+  box-shadow: none;
 }
 
 .search-button {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    border: none;
-    background: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5rem;
-    border-radius: 50%;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 50%;
 }
 
 .search-button:hover {
-    background-color: #f0f0f0;
-}
-
-
-/* Add this style to adjust the padding of the dropdown title */
-#login-register-dropdown > .dropdown-toggle > div {
-  padding: 0.5rem 1rem;
-}
-
-
-/* CustomNavbar.css additions */
-.profile-icon {
-  font-size: 1.4rem;
-  color: #ddd;
-  transition: color 0.3s;
-}
-
-#login-register-dropdown:hover .profile-icon {
-  color: #fff;
-}
-
-/* Add to CustomNavbar.css */
-.profile-icon-spanning {
-  position: absolute;
-  left: -15px; /* Adjust this value to move the icon closer */
-  top: 50%;
-  transform: translateY(-50%);
-  color: #ddd;
-  display: flex;
-  align-items: center;
-}
-
-
-.dropdown-title-wrapper {
-  position: relative;
-  padding-left: 10px;
-  line-height: 1.2;
-}
-
-.welcome-line {
-  font-size: 0.85rem;
-  display: block;
-}
-
-.register-line {
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* Custom dropdown arrow positioning */
-#login-register-dropdown .dropdown-toggle::after {
-  display: none; /* Hide default arrow */
-}
-
-.dropdown-arrow {
-  display: inline-block;
-  margin-left: 4px;
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid #ddd;
-  position: relative;
-  top: -1px;
-}
-
-#login-register-dropdown:hover .dropdown-arrow {
-  border-top-color: #fff;
-}
-
-/* Adjust the dropdown trigger area */
-#login-register-dropdown .dropdown-toggle {
-  padding-left: 35px !important;
-  position: relative;
-  min-height: 40px;
-}
-
-#login-register-dropdown .dropdown-toggle::after {
-  display: none; /* Hide default arrow */
-}
-
-/* CustomNavbar.css */
-
-/* Styles for the dropdown menu */
-.auth-dropdown-menu {
-  background-color: #fff;
-  color: #000;
-  border: none; /* Optional: remove border */
-  min-width: 200px; /* Optional: set a minimum width */
-}
-
-/* Styles for dropdown items */
-.auth-dropdown-menu .dropdown-item {
-  display: flex;
-  align-items: center;
-  color: #000;
-}
-
-/* Adjust the icon spacing in dropdown items */
-.auth-dropdown-menu .dropdown-item svg {
-  margin-right: 8px;
-  color: inherit; /* Ensure icons match text color */
-}
-
-/* Hover effect for dropdown items */
-.auth-dropdown-menu .dropdown-item:hover {
   background-color: #f0f0f0;
 }
 
+/* Welcome/Login Area & Cart */
+.welcome-cart-wrapper {
+display: flex; /*  Use flexbox for the right side */
+align-items: center;
+gap: 1.5rem; /* Adjust the spacing between the welcome area and the cart */
+}
 
-/* CustomNavbar.css */
+/*  Welcome/Login Styling */
+#login-register-dropdown > .dropdown-toggle > div {
+padding: 0.5rem 1rem;
+}
 
-/* Style the cart link */
+.profile-icon {
+font-size: 1.4rem;
+color: #ddd;
+transition: color 0.3s;
+}
+
+#login-register-dropdown:hover .profile-icon {
+color: #fff;
+}
+
+.profile-icon-spanning {
+position: absolute;
+left: -15px;
+top: 50%;
+transform: translateY(-50%);
+color: #ddd;
+display: flex;
+align-items: center;
+}
+
+.dropdown-title-wrapper {
+position: relative;
+padding-left: 10px;
+line-height: 1.2;
+}
+
+.welcome-line {
+font-size: 0.85rem;
+display: block;
+}
+
+.register-line {
+font-size: 0.9rem;
+display: flex;
+align-items: center;
+gap: 4px;
+}
+
+#login-register-dropdown .dropdown-toggle::after {
+display: none;
+}
+
+.dropdown-arrow {
+display: inline-block;
+margin-left: 4px;
+width: 0;
+height: 0;
+border-left: 4px solid transparent;
+border-right: 4px solid transparent;
+border-top: 4px solid #ddd;
+position: relative;
+top: -1px;
+}
+
+#login-register-dropdown:hover .dropdown-arrow {
+border-top-color: #fff;
+}
+
+#login-register-dropdown .dropdown-toggle {
+padding-left: 35px !important;
+position: relative;
+min-height: 40px;
+}
+
+#login-register-dropdown .dropdown-toggle::after {
+display: none;
+}
+
+.auth-dropdown-menu {
+background-color: #fff;
+color: #000;
+border: none;
+min-width: 200px;
+}
+
+.auth-dropdown-menu .dropdown-item {
+display: flex;
+align-items: center;
+color: #000;
+}
+
+.auth-dropdown-menu .dropdown-item svg {
+margin-right: 8px;
+color: inherit;
+}
+
+.auth-dropdown-menu .dropdown-item:hover {
+background-color: #f0f0f0;
+}
+
+/* Cart Styling */
 .cart-link {
-  color: #ddd;
+color: #ddd;
 }
 
 .cart-link:hover {
-  color: #fff;
-  text-decoration: none;
+color: #fff;
+text-decoration: none;
 }
 
-/* Cart icon wrapper */
 .cart-icon-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  transform: scale(1.1);
-  transition: transform 0.2s ease-in-out;
+position: relative;
+display: flex;
+align-items: center;
+transform: scale(1.1);
+transition: transform 0.2s ease-in-out;
 }
 
-
-/* Position the badge over the icon */
 .cart-badge {
-  position: absolute;
-  top: -5px;    /* Move badge upwards */
-  right: -10px; /* Move badge leftwards */
-  font-size: 0.7rem; /* Optional: Adjust for better fit */
-  padding: 3px 5px;  /* Optional: Adjust padding */
+position: absolute;
+top: -5px;
+right: -10px;
+font-size: 0.7rem;
+padding: 3px 5px;
 }
 
-/* Style the 'Cart' text beneath the icon */
 .cart-text {
-  font-size: 0.75rem;
-  color: #ddd;
-  margin-top: 8px; /* Increase to add space beneath icon and badge */
-  text-align: center; 
+font-size: 0.75rem;
+color: #ddd;
+margin-top: 8px;
+text-align: center;
 }
 
 .cart-link:hover .cart-text {
-  color: #fff;
+color: #fff;
 }
