@@ -3,7 +3,7 @@ name: Build and Deploy React App
 on:
   push:
     branches:
-      - main  # Change to your development branch if needed
+      - main
   workflow_dispatch:
 
 jobs:
@@ -14,38 +14,43 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Set up Node.js (adjust the version as needed)
+      # 2. Set up Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
 
-      # 3. Install dependencies
+      # 3. Navigate to the correct project directory
+      - name: Change to React project directory
+        working-directory: vscode/showcase/react-nodejs/book-selling-app/front-end
+        run: echo "Now in React project directory"
+
+      # 4. Install dependencies
       - name: Install dependencies
+        working-directory: vscode/showcase/react-nodejs/book-selling-app/front-end
         run: npm install
 
-      # 4. Build the React app
+      # 5. Build the React app
       - name: Build the project
+        working-directory: vscode/showcase/react-nodejs/book-selling-app/front-end
         run: npm run build
 
-      # 5. Clone the GitHub Pages repository (your showcase repo)
+      # 6. Clone the GitHub Pages repository (your showcase repo)
       - name: Clone showcase repository
         run: |
           git clone https://github.com/cubes786/cubes786.github.io.git ../cubes786.github.io
-        # (Make sure the URL matches your GitHub Pages repository)
 
-      # 6. Copy the build output to the subfolder in the showcase repo
+      # 7. Copy the build output to the subfolder in the showcase repo
       - name: Copy build files to shopping-portal folder
         run: |
           rm -rf ../cubes786.github.io/showcase/shopping-portal
           mkdir -p ../cubes786.github.io/showcase/shopping-portal
-          cp -R build/* ../cubes786.github.io/showcase/shopping-portal/
+          cp -R vscode/showcase/react-nodejs/book-selling-app/front-end/build/* ../cubes786.github.io/showcase/shopping-portal/
 
-      # 7. Commit and push the changes to the showcase repo
+      # 8. Commit and push the changes to the showcase repo
       - name: Deploy changes to GitHub Pages
         working-directory: ../cubes786.github.io
         env:
-          # GitHub automatically provides this token for authentication.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "GitHub Actions"
