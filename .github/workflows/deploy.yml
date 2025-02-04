@@ -51,10 +51,11 @@ jobs:
       - name: Deploy changes to GitHub Pages
         working-directory: ../cubes786.github.io
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_PAT: ${{ secrets.DEPLOY_PAT }}  # Use Personal Access Token
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
+          git remote set-url origin https://cubes786:${{ secrets.DEPLOY_PAT }}@github.com/cubes786/cubes786.github.io.git
           git add showcase/shopping-portal
           git commit -m "Deploy shopping portal update from commit ${{ github.sha }}" || echo "No changes to commit"
           git push origin main
