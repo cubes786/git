@@ -1,0 +1,6 @@
+{
+  "connection_string": "DRIVER={ODBC Driver 17 for SQL Server};SERVER=(local)\\MSSQL;DATABASE=SHOWCASE;Trusted_Connection=yes;",
+  "instruments": [ "4W", "8W", "13W", "26W", "52W" ],
+  "start_date": "2022-01-01",
+  "end_date": "2023-12-31"
+}
