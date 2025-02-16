@@ -1,0 +1,83 @@
+digraph {
+	graph [rankdir=LR]
+	node [rankdir=TB]
+	1559646343184 [label="{Value | data=2.4257 | grad=0.1608}" fillcolor=white shape=record style=filled]
+	"1559646343184ReLU" [label=ReLU shape=circle]
+	"1559646343184ReLU" -> 1559646343184
+	1559703416864 [label="{weight | data=0.1608 | grad=2.4257}" fillcolor=lightblue shape=ellipse style=filled]
+	1559703971920 [label="{Value | data=0.2033 | grad=1.0000}" fillcolor=white shape=record style=filled]
+	"1559703971920*" [label="*" shape=circle]
+	"1559703971920*" -> 1559703971920
+	1559703972048 [label="{Value | data=0.5934 | grad=1.0000}" fillcolor=white shape=record style=filled]
+	"1559703972048+" [label="+" shape=circle]
+	"1559703972048+" -> 1559703972048
+	1559689605392 [label="{input | data=-2.0000 | grad=-0.3140}" fillcolor=lightyellow shape=box style=filled]
+	1559703417136 [label="{weight | data=0.2955 | grad=0.6880}" fillcolor=lightblue shape=ellipse style=filled]
+	1559703279952 [label="{input | data=1.0000 | grad=-0.0345}" fillcolor=lightyellow shape=box style=filled]
+	1559702829392 [label="{weight | data=-0.4517 | grad=0.2955}" fillcolor=lightblue shape=ellipse style=filled]
+	1559703398768 [label="{Value | data=1.8104 | grad=0.1608}" fillcolor=white shape=record style=filled]
+	"1559703398768*" [label="*" shape=circle]
+	"1559703398768*" -> 1559703398768
+	1559646343568 [label="{Value | data=-0.4517 | grad=0.2955}" fillcolor=white shape=record style=filled]
+	"1559646343568*" [label="*" shape=circle]
+	"1559646343568*" -> 1559646343568
+	1559703919088 [label="{Value | data=0.6880 | grad=0.2955}" fillcolor=white shape=record style=filled]
+	"1559703919088+" [label="+" shape=circle]
+	"1559703919088+" -> 1559703919088
+	1559702829696 [label="{weight | data=-0.5699 | grad=-0.5910}" fillcolor=lightblue shape=ellipse style=filled]
+	1559703710352 [label="{Value | data=2.4257 | grad=0.1608}" fillcolor=white shape=record style=filled]
+	"1559703710352+" [label="+" shape=circle]
+	"1559703710352+" -> 1559703710352
+	1559703931600 [label="{weight | data=0.6152 | grad=0.1608}" fillcolor=lightblue shape=ellipse style=filled]
+	1559703038880 [label="{Value | data=1.1397 | grad=0.2955}" fillcolor=white shape=record style=filled]
+	"1559703038880*" [label="*" shape=circle]
+	"1559703038880*" -> 1559703038880
+	1559702998144 [label="{Value | data=0.6152 | grad=0.1608}" fillcolor=white shape=record style=filled]
+	"1559702998144*" [label="*" shape=circle]
+	"1559702998144*" -> 1559702998144
+	1559703323856 [label="{Value | data=0.3901 | grad=1.0000}" fillcolor=white shape=record style=filled]
+	"1559703323856*" [label="*" shape=circle]
+	"1559703323856*" -> 1559703323856
+	1559703997968 [label="{weight | data=-0.9052 | grad=-0.3216}" fillcolor=lightblue shape=ellipse style=filled]
+	1559703918128 [label="{Value | data=0.6880 | grad=0.2955}" fillcolor=white shape=record style=filled]
+	"1559703918128ReLU" [label=ReLU shape=circle]
+	"1559703918128ReLU" -> 1559703918128
+	1559703998288 [label="{bias | data=0.0000 | grad=0.1608}" fillcolor=pink shape=ellipse style=filled]
+	1559703279440 [label="{bias | data=0.0000 | grad=1.0000}" fillcolor=pink shape=ellipse style=filled]
+	1559688849280 [label="{Value | data=-0.4517 | grad=0.2955}" fillcolor=white shape=record style=filled]
+	"1559688849280+" [label="+" shape=circle]
+	"1559688849280+" -> 1559688849280
+	1559703398320 [label="{Value | data=0.6152 | grad=0.1608}" fillcolor=white shape=record style=filled]
+	"1559703398320+" [label="+" shape=circle]
+	"1559703398320+" -> 1559703398320
+	1559703971792 [label="{Value | data=0.3901 | grad=1.0000}" fillcolor=white shape=record style=filled]
+	"1559703971792+" [label="+" shape=circle]
+	"1559703971792+" -> 1559703971792
+	1559702116336 [label="{bias | data=0.0000 | grad=0.2955}" fillcolor=pink shape=ellipse style=filled]
+	1559703417136 -> "1559703971920*"
+	1559702116336 -> "1559688849280+"
+	1559703971920 -> "1559703972048+"
+	1559646343184 -> "1559703323856*"
+	1559703398768 -> "1559703710352+"
+	1559646343568 -> "1559688849280+"
+	1559703918128 -> "1559703971920*"
+	1559702829392 -> "1559646343568*"
+	1559703931600 -> "1559702998144*"
+	1559703710352 -> "1559646343184ReLU"
+	1559703323856 -> "1559703971792+"
+	1559703279952 -> "1559702998144*"
+	1559689605392 -> "1559703038880*"
+	1559703997968 -> "1559703398768*"
+	1559703279440 -> "1559703971792+"
+	1559703038880 -> "1559703919088+"
+	1559703398320 -> "1559703710352+"
+	1559703998288 -> "1559703398320+"
+	1559702829696 -> "1559703038880*"
+	1559703971792 -> "1559703972048+"
+	1559702998144 -> "1559703398320+"
+	1559689605392 -> "1559703398768*"
+	1559703919088 -> "1559703918128ReLU"
+	1559703279952 -> "1559646343568*"
+	1559703416864 -> "1559703323856*"
+	1559688849280 -> "1559703919088+"
+}
