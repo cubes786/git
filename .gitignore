@@ -1,4 +1,5 @@
 obj/
+.vscode/
 vscode/python3/lcialgo/int_prep/findPortSeq.py
 vscode/showcase/langchain-RAG/chroma_db/e83b29be-cba2-459b-a740-7a4dcf852072/link_lists.bin
 vscode/showcase/langchain-RAG/chroma_db/e83b29be-cba2-459b-a740-7a4dcf852072/length.bin
